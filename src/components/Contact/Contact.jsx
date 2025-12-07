@@ -6,10 +6,28 @@ import css from "./Contact.module.css";
 const Contact = ({ contact }) => {
     return (
         <>
-            <h3>Contact card</h3>
-            <p>{contact.id}</p>
-            <p>{contact.name}</p>
-            <p>{contact.number}</p>
+            <li className={css.contactCard}>
+                <div className={css.nameNumber}>
+                    <div className={css.contactField}>
+                        <FaUserSecret className={css.icon} />
+                        <p>{contact.name}</p>
+                    </div>
+                    <div className={css.contactField}>
+                        <GiRotaryPhone className={css.icon} />
+                        <p>{contact.number}</p>
+                    </div>
+                </div>
+                <button
+                    className={css.btn}
+                    type="button"
+                    onClick={() =>
+                        console.log(`delete contact with id: ${contact.id}`)
+                    }
+                >
+                    <TiDelete className={css.icon} />
+                    Delete
+                </button>
+            </li>
         </>
     );
 };

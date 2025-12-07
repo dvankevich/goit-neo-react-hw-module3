@@ -6,7 +6,9 @@ const ContactList = ({ contacts }) => {
     return (
         <>
             <h2>Contact List</h2>
-            <Contact contact={contacts[0]} />
+            <ul>
+                <Contact contact={contacts[0]} />
+            </ul>
         </>
     );
 };
