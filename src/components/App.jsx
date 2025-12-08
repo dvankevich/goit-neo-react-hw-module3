@@ -24,11 +24,17 @@ function App() {
     );
   };
 
+  const addContact = (contact) => {
+    setContacts((prevContactList) => {
+      return [...prevContactList, contact];
+    });
+  };
+
   return (
     <>
       <div>
         <h1>Phonebook</h1>
-        <ContactForm />
+        <ContactForm addContact={addContact} />
         <SearchBox search={searchStr} handleSearch={setSearchStr} />
         {searchStr === "" ? (
           <ContactList contacts={contacts} deleteContact={deleteContact} />

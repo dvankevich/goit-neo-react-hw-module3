@@ -1,0 +1,32 @@
+.error {
+  color: red;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 20px 0;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 12px;
+  width: 360px;
+}
+
+.field {
+  width: 100%;
+  outline: none;
+  border: 1px solid grey;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.btn {
+  cursor: pointer;
+  background-color: lightgrey;
+  color: black;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 0 auto;
+}
