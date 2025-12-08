@@ -22,6 +22,10 @@
   padding: 4px;
 }
 
+.errorField {
+  border: 1px solid red;
+}
+
 .btn {
   cursor: pointer;
   background-color: lightgrey;

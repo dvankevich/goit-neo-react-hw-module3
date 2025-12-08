@@ -11,13 +11,13 @@ const initialValues = {
 
 const FeedbackSchema = Yup.object().shape({
   name: Yup.string()
-    .min(2, "Name is too Short!")
+    .min(3, "Name is too Short!")
     .max(50, "Name is too Long!")
     .required("Required"),
   number: Yup.string()
     .matches(
       /^(?:\+38)?(\(0\d{2}\)\d{3}-\d{4}|\(0\d{2}\)\d{3}-\d{2}-\d{2}|0\d{9}|\d{3}-\d{2}-\d{2})$/,
-      "Incorrect phone number format"
+      "Incorrect phone number format. Valid formats: XXX-XX-XX, 0XX-XXX-XX-XX, (0XX)XXX-XXXX, +380(0XX)XXX-XXXX"
     ) // Регулярний вираз для валідації from https://poe.com/s/e3yJBmpLrsdnOqOGdjrQ
     .required("Required!")
     .typeError("Enter phone-number!"),
@@ -28,9 +28,6 @@ const ContactForm = ({ addContact }) => {
   const numberFieldId = useId();
 
   const handleSubmit = (values, actions) => {
-    // використовуємо nanoid для генерації унікального id
-    // useId генерує помилку:
-    // React Hook "useId" is called in function "handleSubmit" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"
     values.id = nanoid();
     addContact(values);
     actions.resetForm();
@@ -42,25 +39,35 @@ const ContactForm = ({ addContact }) => {
       onSubmit={handleSubmit}
       validationSchema={FeedbackSchema}
     >
-      <Form className={css.form}>
-        <label htmlFor={nameFieldId}>Name</label>
-        <Field className={css.field} type="text" name="name" id={nameFieldId} />
-        <ErrorMessage name="name" component="span" className={css.error} />
+      {({ errors, touched }) => (
+        <Form className={css.form}>
+          <label htmlFor={nameFieldId}>Name</label>
+          <Field
+            className={`${css.field} ${
+              errors.name && touched.name ? css.errorField : ""
+            }`}
+            type="text"
+            name="name"
+            id={nameFieldId}
+          />
+          <ErrorMessage name="name" component="span" className={css.error} />
 
-        <label htmlFor={numberFieldId}>Number</label>
-        <Field
-          className={css.field}
-          type="text"
-          name="number"
-          id={numberFieldId}
-          placeholder="XXX-XX-XX"
-        />
-        <ErrorMessage name="number" component="span" className={css.error} />
+          <label htmlFor={numberFieldId}>Number</label>
+          <Field
+            className={`${css.field} ${
+              errors.number && touched.number ? css.errorField : ""
+            }`}
+            type="text"
+            name="number"
+            id={numberFieldId}
+          />
+          <ErrorMessage name="number" component="span" className={css.error} />
 
-        <button className={css.btn} type="submit">
-          Add contact
-        </button>
-      </Form>
+          <button className={css.btn} type="submit">
+            Add contact
+          </button>
+        </Form>
+      )}
     </Formik>
   );
 };
