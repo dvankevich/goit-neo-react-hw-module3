@@ -8,13 +8,16 @@ import contactsInit from "../contacts.json";
 
 function App() {
   const [contacts, setContacts] = useState(() => {
-    return JSON.parse(window.localStorage.getItem("contacts")) ?? contactsInit;
+    return (
+      JSON.parse(window.localStorage.getItem("saved-contacts")) ?? contactsInit
+    );
   });
 
   const [searchStr, setSearchStr] = useState("");
 
   useEffect(() => {
     window.localStorage.setItem("saved-contacts", JSON.stringify(contacts));
+    console.log("saved", contacts);
   }, [contacts]);
 
   const deleteContact = (id) => {
