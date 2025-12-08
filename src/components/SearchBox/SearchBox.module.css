@@ -1,0 +1,11 @@
+.box {
+  width: 360px;
+}
+
+.field {
+  width: 100%;
+  outline: none;
+  border: 1px solid grey;
+  border-radius: 4px;
+  padding: 4px;
+}

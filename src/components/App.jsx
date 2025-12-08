@@ -11,12 +11,17 @@ function App() {
     return JSON.parse(window.localStorage.getItem("contacts")) ?? contactsInit;
   });
 
+  const [searchStr, setSearchStr] = useState("");
+
   useEffect(() => {
     window.localStorage.setItem("saved-contacts", JSON.stringify(contacts));
   }, [contacts]);
 
   const deleteContact = (id) => {
     console.log(`delete contact with id: ${id}`);
+    setContacts((prevContactList) =>
+      prevContactList.filter((contact) => contact.id !== id)
+    );
   };
 
   return (
@@ -24,8 +29,19 @@ function App() {
       <div>
         <h1>Phonebook</h1>
         <ContactForm />
-        <SearchBox />
-        <ContactList contacts={contacts} deleteContact={deleteContact} />
+        <SearchBox search={searchStr} handleSearch={setSearchStr} />
+        {searchStr === "" ? (
+          <ContactList contacts={contacts} deleteContact={deleteContact} />
+        ) : (
+          <ContactList
+            contacts={contacts.filter((contact) => {
+              return contact.name
+                .toLowerCase()
+                .includes(searchStr.toLowerCase());
+            })}
+            deleteContact={deleteContact}
+          />
+        )}
       </div>
     </>
   );
