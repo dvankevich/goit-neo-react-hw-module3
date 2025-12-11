@@ -31,24 +31,17 @@ function App() {
     });
   };
 
+  const visibleContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(searchStr.toLowerCase())
+  );
+
   return (
     <>
       <div>
         <h1>Phonebook</h1>
         <ContactForm addContact={addContact} />
         <SearchBox search={searchStr} handleSearch={setSearchStr} />
-        {searchStr === "" ? (
-          <ContactList contacts={contacts} deleteContact={deleteContact} />
-        ) : (
-          <ContactList
-            contacts={contacts.filter((contact) => {
-              return contact.name
-                .toLowerCase()
-                .includes(searchStr.toLowerCase());
-            })}
-            deleteContact={deleteContact}
-          />
-        )}
+        <ContactList contacts={visibleContacts} deleteContact={deleteContact} />
       </div>
     </>
   );
