@@ -5,6 +5,7 @@ import SearchBox from "./SearchBox/SearchBox.jsx";
 import { useEffect, useState } from "react";
 
 import contactsInit from "../contacts.json";
+import { useDebounce } from "../hooks/useDebounce.js";
 
 function App() {
   const [contacts, setContacts] = useState(() => {
@@ -31,9 +32,12 @@ function App() {
     });
   };
 
-  const visibleContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(searchStr.toLowerCase())
-  );
+  const debouncedSearchStr = useDebounce(searchStr, 300);
+  const filteredContacts = debouncedSearchStr
+    ? contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(debouncedSearchStr.toLowerCase())
+      )
+    : contacts;
 
   return (
     <>
@@ -41,7 +45,10 @@ function App() {
         <h1>Phonebook</h1>
         <ContactForm addContact={addContact} />
         <SearchBox search={searchStr} handleSearch={setSearchStr} />
-        <ContactList contacts={visibleContacts} deleteContact={deleteContact} />
+        <ContactList
+          contacts={filteredContacts}
+          deleteContact={deleteContact}
+        />
       </div>
     </>
   );
