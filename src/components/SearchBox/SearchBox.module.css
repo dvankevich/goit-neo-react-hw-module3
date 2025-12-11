@@ -10,3 +10,12 @@
   border-radius: 4px;
   padding: 4px;
 }
+
+.btn {
+  cursor: pointer;
+  background-color: lightgrey;
+  color: black;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 0 auto;
+}
