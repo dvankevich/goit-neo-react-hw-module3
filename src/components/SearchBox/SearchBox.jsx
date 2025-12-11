@@ -5,7 +5,9 @@ const SearchBox = ({ search, handleSearch }) => {
   const searchInputId = useId();
   return (
     <div className={css.box}>
-      <label htmlFor={searchInputId}>Find contacts by name</label>
+      <label htmlFor={searchInputId} aria-label="Find contacts by name field">
+        Find contacts by name
+      </label>
       <input
         className={css.field}
         id={searchInputId}

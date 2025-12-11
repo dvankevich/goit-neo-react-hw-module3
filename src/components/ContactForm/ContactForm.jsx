@@ -41,7 +41,9 @@ const ContactForm = ({ addContact }) => {
     >
       {({ errors, touched }) => (
         <Form className={css.form}>
-          <label htmlFor={nameFieldId}>Name</label>
+          <label htmlFor={nameFieldId} aria-label="Contact name">
+            Name
+          </label>
           <Field
             className={`${css.field} ${
               errors.name && touched.name ? css.errorField : ""
@@ -49,10 +51,13 @@ const ContactForm = ({ addContact }) => {
             type="text"
             name="name"
             id={nameFieldId}
+            aria-required="true"
           />
           <ErrorMessage name="name" component="span" className={css.error} />
 
-          <label htmlFor={numberFieldId}>Number</label>
+          <label htmlFor={numberFieldId} aria-label="Phone number">
+            Number
+          </label>
           <Field
             className={`${css.field} ${
               errors.number && touched.number ? css.errorField : ""
@@ -60,10 +65,15 @@ const ContactForm = ({ addContact }) => {
             type="text"
             name="number"
             id={numberFieldId}
+            aria-required="true"
           />
           <ErrorMessage name="number" component="span" className={css.error} />
 
-          <button className={css.btn} type="submit">
+          <button
+            className={css.btn}
+            type="submit"
+            aria-label="Add contact button"
+          >
             Add contact
           </button>
         </Form>
